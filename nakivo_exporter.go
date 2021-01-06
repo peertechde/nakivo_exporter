@@ -33,10 +33,10 @@ var (
 		Bool()
 
 	nakivoAddress = kingpin.Flag("nakivo.addr",
-		"HTTP API address of the nakivo endpoint.").
-		Default("https://localhost:4443/c/router").String()
+		"IP address of the nakivo endpoint.").
+		Default("127.0.0.1").String()
 	nakivoPort = kingpin.Flag("nakivo.port",
-		"HTTP API port of the nakivo endpoint.").
+		"Port of the nakivo endpoint.").
 		Default("4443").Int()
 	nakivoUser = kingpin.Flag("nakivo.user",
 		"The nakivo user.").
