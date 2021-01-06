@@ -85,6 +85,7 @@ func main() {
 
 	prometheus.MustRegister(version.NewCollector("nakivo_exporter"))
 	prometheus.MustRegister(collector.NewJob(logger, nakivoClient, 9))
+	prometheus.MustRegister(collector.NewJobGroup(logger, nakivoClient))
 
 	level.Info(logger).Log("msg", "Starting nakivo_exporter", "version", version.Info())
 	level.Info(logger).Log("msg", "Build context", "build_context", version.BuildContext())
