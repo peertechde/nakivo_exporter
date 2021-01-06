@@ -17,11 +17,11 @@ func NewJobGroup(logger log.Logger, client *nakivo.Client) *JobGroup {
 
 		up: prometheus.NewGauge(prometheus.GaugeOpts{
 			Name: prometheus.BuildFQName(namespace, "group_stats", "up"),
-			Help: "Was the last scrape of the Nakivo job endpoint successful.",
+			Help: "Was the last scrape of the Nakivo group endpoint successful.",
 		}),
 		totalScrapes: prometheus.NewCounter(prometheus.CounterOpts{
 			Name: prometheus.BuildFQName(namespace, "group_stats", "total_scrapes"),
-			Help: "Current total Nakivo job scrapes.",
+			Help: "Current total Nakivo group scrapes.",
 		}),
 
 		metrics: []groupMetric{
@@ -146,11 +146,11 @@ func (g *JobGroup) scrape(ch chan<- prometheus.Metric) error {
 	ctx := context.Background()
 	group, _, err := g.client.Job.List(ctx, 0, false)
 	if err != nil {
-		level.Warn(g.logger).Log("msg", "failed to fetch job info stat", "err", err)
+		level.Warn(g.logger).Log("msg", "failed to fetch group stat", "err", err)
 		return err
 	}
 	if len(group.Children) == 0 || len(group.Children) >= 2 {
-		level.Warn(g.logger).Log("msg", "failed to fetch job info stat")
+		level.Warn(g.logger).Log("msg", "failed to fetch group stat")
 		return err
 	}
 
